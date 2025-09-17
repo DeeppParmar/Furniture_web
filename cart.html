@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gokul Furniture - Shopping Cart">
+    <title>Shopping Cart | Gokul Furniture</title>
+    <!-- Font imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Gokul Furniture</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Living</a></li>
+                <li><a href="#" class="nav-link">Bedroom</a></li>
+                <li><a href="#" class="nav-link">Bathroom</a></li>
+                <li><a href="#" class="nav-link">Kitchen</a></li>
+                <li><a href="#" class="nav-link">Dining</a></li>
+                <li><a href="#" class="nav-link">Office</a></li>
+                <li><a href="#" class="nav-link">Outdoor</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="icon-btn" onclick="window.location.href='product.html'">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="fa fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Breadcrumb -->
+        <ul class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li><span class="breadcrumb-separator">›</span></li>
+            <li><a href="product.html">Products</a></li>
+            <li><span class="breadcrumb-separator">›</span></li>
+            <li>Shopping Cart</li>
+        </ul>
+
+        <!-- Cart Section -->
+        <section class="cart-section">
+            <h1 class="page-title">Shopping Cart</h1>
+            
+            <!-- Cart Items -->
+            <div class="cart-container">
+                <div class="cart-items-section">
+                    <div class="cart-items" id="cartItemsContainer">
+                        <!-- Cart items will be dynamically loaded here -->
+                        <div class="empty-cart-message" id="emptyCartMessage">
+                            <div class="empty-cart-icon">
+                                <i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <h3>Your cart is empty</h3>
+                            <p>Add some furniture to get started!</p>
+                            <button class="continue-shopping-btn" onclick="window.location.href='product.html'">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <div class="summary-card">
+                        <h3>Order Summary</h3>
+                        
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">₹0</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="shipping">₹500</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Tax (18% GST):</span>
+                            <span id="tax">₹0</span>
+                        </div>
+                        
+                        <div class="summary-divider"></div>
+                        
+                        <div class="summary-row total-row">
+                            <span>Total:</span>
+                            <span id="total">₹0</span>
+                        </div>
+                        
+                        <div class="promo-code">
+                            <input type="text" id="promoInput" placeholder="Enter promo code" class="promo-input">
+                            <button class="apply-promo-btn" id="applyPromoBtn">Apply</button>
+                        </div>
+                        
+                        <button class="checkout-btn" id="checkoutBtn">
+                            <i class="fa fa-lock"></i>
+                            Proceed to Checkout
+                        </button>
+                        
+                        <div class="payment-methods">
+                            <p>We accept:</p>
+                            <div class="payment-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-paypal"></i>
+                                <i class="fab fa-google-pay"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Products -->
+        <section class="recommended-section" id="recommendedSection" style="display: none;">
+            <h3 class="section-title">Recommended for You</h3>
+            <div class="recommended-grid" id="recommendedGrid">
+                <!-- Recommended products will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-overlay" id="checkoutOverlay"></div>
+        <div class="modal-content checkout-modal">
+            <div class="modal-header">
+                <h3>Checkout</h3>
+                <button class="modal-close" id="checkoutClose">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-steps">
+                    <div class="step active">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Shipping</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Payment</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Review</span>
+                    </div>
+                </div>
+                
+                <form class="checkout-form" id="checkoutForm">
+                    <div class="form-section">
+                        <h4>Shipping Information</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" rows="3" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pincode">Pincode</label>
+                                <input type="text" id="pincode" name="pincode" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            Place Order
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content success-modal">
+            <div class="modal-body">
+                <div class="success-icon">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <h3>Order Placed Successfully!</h3>
+                <p>Thank you for your purchase. Your order has been confirmed and will be delivered soon.</p>
+                <div class="order-details">
+                    <p><strong>Order ID:</strong> <span id="orderId">#GOK001</span></p>
+                    <p><strong>Estimated Delivery:</strong> 5-7 business days</p>
+                </div>
+                <div class="success-actions">
+                    <button class="btn btn-primary" onclick="window.location.href='product.html'">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Gokul Furniture. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="product.js"></script>
+    <script>
+        // Initialize cart page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            updateCartSummary();
+            loadRecommendedProducts();
+        });
+    </script>
+</body>
+</html>
